@@ -40,16 +40,21 @@ form {
     display: flex;
     flex-direction: column;
     max-width: 400px;
+    margin: 0 auto;
     border: 1px solid rgb(53, 53, 53);
     overflow: hidden;
     border-radius: 15px;
     gap: 20px;
     padding: 10px;
 
-    input {
+    input, textarea {
         min-height: 50px;
         padding: 10px;
         background-color: #333333;
+    }
+
+    textarea {
+        min-height: 200px;
     }
 
     button {
