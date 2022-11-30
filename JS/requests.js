@@ -30,7 +30,7 @@ export function deleteMessage(id) {
     })
 }
 
-export function changeMessage(id) {
+export function changeMessage(id, newData) {
     fetch(`https://628e4808a339dfef87ab4f4b.mockapi.io/test/${id}`, {
         method: 'PUT',
         headers: {

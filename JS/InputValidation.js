@@ -1,8 +1,8 @@
 export default class InputValidation {
-    static validationArr = []
 
     constructor(input) {
         this.input = input
+        this.isError = false
 
         this.addListeners()
     }
@@ -14,32 +14,37 @@ export default class InputValidation {
 
 
 
-    validate() {
+    validate(form) {
         const value = this.input.value;
 
-        (this.input.type == 'text' || this.input.type == 'tel')
+        (this.input.type == 'text' || this.input.type == 'tel' || this.input.tagName == "TEXTAREA")
             && ( this.emptyValidate(value) || this.addError(this.input) );
 
         this.input.type == 'email' 
             && ( this.emailValidate(value) || this.addError(this.input) );
 
         (this.input.type == 'radio' || this.input.type == 'checkbox') 
-            && ( this.checkValidate() || this.addError(this.input) );
+            && ( this.checkValidate(form || this.input) || this.addError(this.input) );
     }
 
 
 
     addError(elem) {
+        if (this.isError) return
+
+        this.isError = true
         elem.classList.add('validate-error', 'js-validate-error')
     }
 
     resetError() {
-        this.input.classList.remove('validate-error', 'js-validate-error')
+        if (!this.isError) return
 
-        if (this.input.type == 'radio' || this.input.type == 'checkbox') {
-            document.querySelectorAll(`input[name=${this.input.name}]`).forEach(input =>
+        this.isError = false
+        this.input.classList.remove('validate-error', 'js-validate-error');
+
+        (this.input.type == 'radio' || this.input.type == 'checkbox')
+            && document.querySelectorAll(`input[name=${this.input.name}]`).forEach(input =>
                 input.closest('.js-input-validate').classList.remove('validate-error', 'js-validate-error'))
-        }
     }
 
 
@@ -53,7 +58,8 @@ export default class InputValidation {
         return emailRegExp.test(value)
     }
 
-    checkValidate() {
-        return document.querySelector(`input[name=${this.input.name}]:checked`)
+    checkValidate(wrapper) {
+        if (!wrapper) throw new Error('No wrapper arg')
+        return [...wrapper.querySelectorAll(`input[name=${this.input.name}]`)].some(input => input.checked)
     }
 }

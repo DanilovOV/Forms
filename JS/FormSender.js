@@ -2,42 +2,45 @@ import InputValidation from "./InputValidation.js"
 import { postMessage } from "./requests.js"
 
 export default class FormSender {
-    constructor(form) {
-        this.form = form
-        this.inputsArr = []
-        this.fake = {
-            name: 'Oleg',
-            email: 'oleg@gmail.com',
-            city: 'City',
-            message: 'Some text'
-        }
-        this.#handleFormElements()
+
+    constructor(formElem) {
+        this.form = formElem
+        this.inputValidationArr = []
+        
+        this.button = this.form.querySelector('.js-button-validate')
+        if (!this.button)
+            throw new Error('Form must contain submit button with classname js-button-validate')
+
+        this.addListeners()
+        this.addValidation()
     }
 
-    #handleFormElements() {
-        [...this.form.elements].forEach(elem => {
-            (elem.tagName == 'INPUT' || elem.tagName == 'TEXTAREA')
-                && this.#addInputsEvent(elem)
-
-            elem.tagName == 'BUTTON'
-                && this.#addButtonListener(elem)
-        })
+    addListeners() {
+        this.button.addEventListener('click', this.validateForm.bind(this))
     }
 
-    #addInputsEvent(input) {
-        this.inputsArr.push(new InputValidation(input))
+    addValidation() {
+        this.form.querySelectorAll('.js-input-validate').forEach(
+            formElem => this.inputValidationArr.push(new InputValidation(formElem)))
     }
 
-    #addButtonListener(button) {
-        button.addEventListener('click', this.send.bind(this))
-    }
-
-    #makeData() {
-
-    }
-
-    send(e) {
+    validateForm(e) {
         e.preventDefault()
-        postMessage(this.fake)
+
+        this.inputValidationArr.forEach(elem => elem.validate(this.form))
+        this.inputValidationArr.some(elem => elem.isError)
+            || this.request() 
+    }
+
+    makeData() {
+        const formData = {};
+        [...this.form.elements].forEach(elem => {
+            if (elem.name != '') formData[elem.name] = elem.value
+        })
+        return formData
+    }
+
+    request() {
+        postMessage(this.makeData())
     }
 }
