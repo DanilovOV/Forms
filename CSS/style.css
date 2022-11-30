@@ -102,6 +102,8 @@ form button {
   width: fit-content;
   padding: 10px;
   border-radius: 10px;
+  background-color: #333333;
+  color: #fff;
 }
 
 .validate-error {
