@@ -1,4 +1,5 @@
 import FormSender from "./FormSender.js"
+import InputValidation from "./InputValidation.js"
 import MessageRequests from "./requests.js"
 
 
@@ -66,6 +67,7 @@ document.querySelector('.js-delete-message').addEventListener('click', deleteMes
 
 async function deleteMessage(e) {
     e.preventDefault()
-    await messageRequests.deleteMessage(document.forms.deleteMessage.messageId.value)
+    const value = document.forms.deleteMessage.messageId.value
+    value && await messageRequests.deleteMessage(value)
     setTimeout(() => writeMessages(), 200);
 }
