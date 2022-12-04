@@ -29,7 +29,7 @@ body {
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1400px;
     padding: 0 100px;
     margin: 100px auto;
 }
@@ -39,8 +39,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto;
+    height: fit-content;
     border: 1px solid rgb(53, 53, 53);
     overflow: hidden;
     border-radius: 15px;
@@ -54,7 +53,7 @@ form {
     }
 
     textarea {
-        min-height: 200px;
+        min-height: 150px;
     }
 
     button {
@@ -68,4 +67,59 @@ form {
 
 .validate-error {
     outline: 1px solid red;
+}
+
+.title {
+    padding: 10px 0;
+    font-size: 22px;
+    text-align: center;
+}
+
+.forms {
+    padding: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.interface {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.data {
+    min-height: 100vh;
+    border-left: 1px solid #333;
+
+    .title {
+        border-bottom: 1px solid #333;
+    }
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.obj-data {
+    margin: 10px 0;
+}
+
+.message-card {
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #333;
+
+    &__item {
+
+    }
+
+    &__text {
+       
+        span {
+            color: #999;
+            margin-right: 6px;
+        }
+    }
 }

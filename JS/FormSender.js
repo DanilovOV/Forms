@@ -1,11 +1,12 @@
 import InputValidation from "./InputValidation.js"
-import { postMessage } from "./requests.js"
+import MessageRequests from "./requests.js"
 
 export default class FormSender {
 
     constructor(formElem) {
         this.form = formElem
         this.inputValidationArr = []
+        this.messageRequest = new MessageRequests()
         
         this.button = this.form.querySelector('.js-button-validate')
         if (!this.button)
@@ -29,7 +30,7 @@ export default class FormSender {
 
         this.inputValidationArr.forEach(elem => elem.validate(this.form))
         this.inputValidationArr.some(elem => elem.isError)
-            || this.request() 
+            || this.sendMessage() 
     }
 
     makeData() {
@@ -40,7 +41,7 @@ export default class FormSender {
         return formData
     }
 
-    request() {
-        postMessage(this.makeData())
+    sendMessage() {
+        this.messageRequest.postMessage(this.makeData())
     }
 }

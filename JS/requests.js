@@ -1,49 +1,53 @@
-export function postMessage(data) {
-    fetch('https://628e4808a339dfef87ab4f4b.mockapi.io/messages', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        },
-        body: JSON.stringify(data)
-    })
-    .then((response) => {
-        alert('success')
-        console.log(response)
-    })
-    .catch((error) => {
-        alert('error')
-        console.log(error)
-    })
-}
+export default class MessageRequests {
+    url = 'https://628e4808a339dfef87ab4f4b.mockapi.io/messages/'
 
-export function deleteMessage(id) {
-    fetch(`https://628e4808a339dfef87ab4f4b.mockapi.io/test/${id}`, {
-        method: 'DELETE',
-    })
-    .then((response) => {
-        alert('success')
-        console.log(response)
-    })
-    .catch((error) => {
-        alert('error')
-        console.log(error)
-    })
-}
+    async getMessage() {
+        let response = await fetch(this.url)
 
-export function changeMessage(id, newData) {
-    fetch(`https://628e4808a339dfef87ab4f4b.mockapi.io/test/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        },
-        body: JSON.stringify(newData)
-    })
-    .then((response) => {
-        alert('success')
-        console.log(response)
-    })
-    .catch((error) => {
-        alert('error')
-        console.log(error)
-    })
+        return response.ok
+            ? await response.json()
+            : "Error"
+    }
+
+    postMessage(data) {
+        fetch(this.url, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+            alert('success')
+            console.log(response)
+        })
+        .catch((error) => {
+            alert('error')
+            console.log(error)
+        })
+    }
+
+    async deleteMessage(id) {
+        fetch(this.url + id, {
+            method: 'DELETE',
+        })
+    }
+
+    changeMessage(id, newData) {
+        fetch(this.url + id, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(newData)
+        })
+        .then((response) => {
+            alert('success')
+            console.log(response)
+        })
+        .catch((error) => {
+            alert('error')
+            console.log(error)
+        })
+    }
 }

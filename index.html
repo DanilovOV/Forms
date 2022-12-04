@@ -8,15 +8,39 @@
     </head>
     <body>
         <div class="wrapper">
-            <div class="container">
-                <form class="js-form" name="form1">
-                    <input class="js-input-validate" type="text" name="name" placeholder="Имя">
-                    <input class="js-input-validate" type="email" name="email" placeholder="E-mail">
-                    <input type="text" name="city" placeholder="Город">
-                    <textarea class="js-input-validate" name="message" placeholder="Сообщение"></textarea>
-                    <button class="js-button-validate" type="submit">Отправить</button>
-                </form>
+            <div class="interface">
+                <div class="forms">
+                    
+                    <div class="controls">
+                        <form name="get-messages">
+                            <div class="title">Просмотреть сообщения</div>
+                            <button class="js-get-messages" type="submit">Получить</button>
+                        </form>
+    
+                        <form name="deleteMessage">
+                            <div class="title">Удалить сообщение</div>
+                            <input type="text" name="messageId" placeholder="Укажите id сообщения">
+                            <button class="js-delete-message" type="submit">Отправить</button>
+                        </form>
+                    </div>
+
+
+                    <form class="js-send-form" name="send-message">
+                        <div class="title">Отправить сообщение</div>
+                        <input class="js-input-validate" type="text" name="name" placeholder="Имя">
+                        <input class="js-input-validate" type="email" name="email" placeholder="E-mail">
+                        <input type="text" name="city" placeholder="Город">
+                        <textarea class="js-input-validate" name="message" placeholder="Сообщение"></textarea>
+                        <button class="js-button-validate" type="submit">Отправить</button>
+                    </form>
+                </div>
+
+                <div class="data">
+                    <div class="title">Сообщения</div>
+                    <div class="js-data"></div>
+                </div>
             </div>
+
         </div>
 
         <script src="JS/script.js" type="module"></script>
