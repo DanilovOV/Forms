@@ -152,6 +152,9 @@ form button {
   padding: 20px;
   border: 1px solid #333;
 }
+.message-card__item {
+  margin: 3px 0;
+}
 .message-card__text span {
   color: #999;
   margin-right: 6px;
